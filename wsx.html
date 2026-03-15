@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>копировать утюг</title>
+    <link rel="stylesheet" href="s1tyle.css">
+	<link rel="icon" href="11111111.png" type="image/png">
+    <style>
+        .morph-cloud {
+            width: 800px;
+            height: 450px;
+            background-color: #ffeb99;
+            animation: morphing 4s infinite ease-in-out;
+            margin: 0 auto;
+        }
+
+        @keyframes morphing {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: scale(1.1); }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+
+        /* Стили для меню выбора сайтов */
+        .site-menu {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 4px solid #000;
+            padding: 20px;
+            z-index: 1000;
+            box-shadow: 10px 10px 0px #ffeb99;
+            min-width: 300px;
+            font-family: sans-serif;
+        }
+
+        .site-menu ul { list-style: none; padding: 0; }
+        .site-menu li { 
+            padding: 10px; 
+            border: 2px solid #eee; 
+            margin-bottom: 5px; 
+            cursor: pointer; 
+            transition: 0.2s;
+        }
+        .site-menu li:hover { background: #ffeb99; border-color: #000; }
+    </style>
+</head>
+<body>
+    <img src="programmnuy-kod.png" width="500" class="special-img">
+    <img src="qaz.png" width="500" style="display: block; margin: 0 auto;">
+    <h1 style="text-align: center;"><b>Пишите текст:</b></h1>
+    
+    <div class="morph-cloud"></div>
+
+    <textarea id="myInput" class="overlay-input" placeholder="Пиши текст здесь..."></textarea>
+    <button class="mainBtn" id="mainBtn"><b>готово</b></button>
+	<button class="QAZWSX" id="QAZWSX"><b>шо ито</b></button>
+    <div id="siteMenu" class="site-menu" style="display: none;">
+        <h3>о сайте<h3>
+		<h3>сайт для удобного просмотра сайтов<h3>
+        <button onclick="document.getElementById('siteMenu').style.display='none'" style="position:static; transform:none; font-size: 14px; margin-top: 10px;">закрыть</button>
+    </div>
+<script>
+    const mainBtn = document.getElementById('mainBtn');
+    const textarea = document.getElementById('myInput');
+	const menu = document.getElementById('siteMenu');
+	const btn = document.getElementById('QAZWSX');
+
+	btn.addEventListener('click', (e) => {
+		menu.style.display = 'block';
+		e.stopPropagation(); 
+	});
+
+	window.addEventListener('click', (e) => {
+
+		if (!menu.contains(e.target)) {
+			menu.style.display = 'none';
+		}
+	});
+    let fileHandle = null;
+    let watcherInterval = null;
+
+    const previewLayer = document.createElement('div');
+    previewLayer.style = "position:fixed; top:0; left:0; width:100vw; height:100vh; background:white; z-index:999999; display:none;";
+    document.body.appendChild(previewLayer);
+
+    const iframe = document.createElement('iframe');
+    iframe.style = "width:100%; height:100%; border:none;";
+    previewLayer.appendChild(iframe);
+
+    const controls = document.createElement('div');
+    controls.style = "position:fixed; top:10px; right:10px; background:rgba(0,0,0,0.9); color:white; padding:15px; border:2px solid #ffeb99; z-index:1000000; font-family:sans-serif; border-radius:8px;";
+    controls.innerHTML = `
+        <div style="margin-bottom:8px;"><b>НАСТРОЙКИ</b></div>
+        <label><input type="checkbox" id="autoUpdateCheck" checked> Авто-обновление</label><br>
+        <div style="margin-top:8px;">Интервал сек: 
+            <input type="number" id="updateTimer" value="0.5" step="0.1" style="width:50px; background:#222; color:#fff; border:1px solid #777;">
+        </div>бл
+        <div style="font-size:10px; color:#aaa; margin-top:8px; text-align:center;"><b>ESC</b> - выход | <b>Колёсико</b> - код</div>
+    `;
+    previewLayer.appendChild(controls);
+
+    const inspectPanel = document.createElement('div');
+    inspectPanel.style = "position:fixed; bottom:0; left:0; width:100%; background:black; color:lime; padding:10px; font-family:monospace; z-index:1000001; display:none; border-top:2px solid lime; pointer-events:none; font-size:11px;";
+    document.body.appendChild(inspectPanel);
+
+    mainBtn.onclick = async () => {
+        try {
+
+            [fileHandle] = await window.showOpenFilePicker({
+                types: [{ description: 'HTML файлы', accept: {'text/html': ['.html']} }],
+                excludeAcceptAllOption: true,
+                multiple: false
+            });
+
+            previewLayer.style.display = 'block';
+            startWatcher();
+        } catch (err) {
+            alert("чебупели");
+        }
+    };
+
+    async function startWatcher() {
+        if (watcherInterval) clearInterval(watcherInterval);
+        
+        const check = async () => {
+            if (!fileHandle || !document.getElementById('autoUpdateCheck').checked) return;
+            
+            const file = await fileHandle.getFile();
+            const text = await file.text();
+
+            if (textarea.value !== text) {
+                textarea.value = text;
+                updateIframe(text);
+            }
+        };
+
+        const sec = parseFloat(document.getElementById('updateTimer').value) || 0.5;
+        watcherInterval = setInterval(check, sec * 1000);
+        check();
+    }
+
+    function updateIframe(html) {
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        doc.open();
+        doc.write(html + `
+            <script>
+                document.onmousedown = (e) => {
+                    if (e.button === 1) { 
+                        e.preventDefault();
+                        window.parent.postMessage({type: 'show', code: e.target.outerHTML}, '*');
+                    }
+                };
+                document.onmouseup = (e) => { if (e.button === 1) window.parent.postMessage({type: 'hide'}, '*'); };
+            <\/script>
+        `);
+        doc.close();
+    }
+
+
+    document.getElementById('autoUpdateCheck').onchange = startWatcher;
+    document.getElementById('updateTimer').onchange = startWatcher;
+
+    window.addEventListener('message', (e) => {
+        if (e.data.type === 'show') {
+            inspectPanel.innerText = "HTML: " + e.data.code;
+            inspectPanel.style.display = 'block';
+        } else { inspectPanel.style.display = 'none'; }
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === "Escape") {
+            previewLayer.style.display = 'none';
+            clearInterval(watcherInterval);
+        }
+    });
+</script>
+
+
+
+</body>
+</html>

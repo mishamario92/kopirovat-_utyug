@@ -1,0 +1,90 @@
+@font-face {
+  font-family: 'Eno Black'; 
+  src: url('Eno Black.ttf') format('truetype');
+  font-weight: 900; 
+  font-style: normal;
+  font-display: swap;
+}
+
+
+body {
+  font-family: 'Eno Black', sans-serif;
+}
+body {
+    background-color: #FFFFF0; 
+}
+img{
+  position: relative; 
+  left: 40%
+}
+ .morph-cloud  {
+  position: relative; 
+  left: 30%
+}
+h1 {
+  position: relative; 
+  left: 45%
+}
+.special-img { 	
+	pointer-events: none; 
+ 
+	position: fixed;
+	bottom: 0;
+	width: 50%;
+	left: 1%
+
+}
+.overlay-input {
+	position: fixed; 
+	z-index: 10;     
+}
+textarea{
+  position: fixed; 
+  width: 20%;
+  background: transparent; 
+  
+  border: none;            
+  outline: none;            
+  resize: none; 
+  
+  color: #000; 
+  left: 40%;
+  bottom: 350px;
+  
+  font-family: 'Eno Black'; 
+  src: url('Eno Black.ttf') format('truetype');
+  font-size: 32px;
+  font-weight: 900; 
+
+  
+  font-style: normal;
+  font-display: swap;
+  z-index: 10;
+}
+button {
+  position: fixed; 
+  background: transparent; 
+  transition: transform 0.3s ease;  
+  border: none;            
+  outline: none;            
+  resize: none; 
+  transform: scale(2.3);
+  color: #000; 
+  left: 48%;
+  bottom: 250px; 
+
+  z-index: 10;
+  font-family: 'Eno Black'; 
+  src: url('Eno Black.ttf') format('truetype');
+  font-weight: 900; 
+  font-style: normal;
+  font-display: swap;
+}
+
+button:hover {
+  transform: scale(3.7); 
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.8); 
+}
+button:active {
+  transform: scale(2.95); 
+}

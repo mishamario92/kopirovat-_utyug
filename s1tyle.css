@@ -1,0 +1,122 @@
+@font-face {
+  font-family: 'Eno Black'; 
+  src: url('Eno Black.ttf') format('truetype');
+  font-weight: 900; 
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: 'Eno Black', sans-serif;
+  background-color: #FFFFF0;
+  margin: 0;
+  padding: 0;
+}
+
+h1, img, .morph-cloud {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  z-index: 10;
+}
+
+h1 {
+  position: relative;
+  margin-top: 20px;
+}
+
+.special-img { 	
+  pointer-events: none; 
+  position: fixed;
+  bottom: 0;
+  width: 50%;
+  left: 0;
+  z-index: -1;
+}
+
+textarea {
+  position: fixed; 
+  width: 500px; 
+  height: 200px;
+  background: transparent; 
+  border: none;            
+  outline: none;            
+  resize: none; 
+  
+  color: #000; 
+  left: 50%;
+  bottom: 270px;
+  transform: translateX(-50%); 
+  
+  font-family: 'Eno Black'; 
+  font-size: 32px;
+  font-weight: 900; 
+  z-index: 10;
+  text-align: center;
+}
+button {
+  background: transparent; 
+  cursor: pointer;
+  border: none;            
+  outline: none; 
+  
+
+  
+  font-family: 'Eno Black'; 
+
+}
+
+
+.mainBtn {
+  position: fixed; 
+
+  color: #000; 
+  left: 50%;
+  bottom: 250px; 
+  transform: translateX(-50%) scale(2.3); 
+
+  z-index: 10;
+ 
+  font-weight: 900; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.QAZWSX {
+  position: fixed;            
+  
+  color: #003153; 
+  left: 95%;
+  bottom: 900px; 
+  transform: translateX(-50%) scale(2.3); 
+
+  z-index: 10;
+
+  font-weight: 90; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+button:hover {
+  transform: translateX(-50%) scale(3.7); 
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.4); 
+}
+
+button:active {
+  transform: translateX(-50%) scale(2.95); 
+}
+.site-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffeb99;
+    padding: 20px;
+    border: 5px solid #000;
+    z-index: 100;
+    box-shadow: 10px 10px 0px #000;
+}
+.site-menu ul { list-style: none; padding: 0; }
+.site-menu li { 
+    cursor: pointer; 
+    padding: 10px; 
+    border-bottom: 2px solid #000; 
+}
+.site-menu li:hover { background: #fff; }
+
