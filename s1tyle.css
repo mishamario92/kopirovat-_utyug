@@ -54,6 +54,12 @@ textarea {
   z-index: 10;
   text-align: center;
 }
+
+textarea::placeholder {
+  font-size: 42px !important;
+  font-family: 'Eno Black', sans-serif;
+  color: rgba(0, 0, 0, 0.3); 
+}
 button {
   background: transparent; 
   cursor: pointer;
@@ -66,11 +72,6 @@ button {
 
 }
 
-textarea::placeholder {
-  font-size: 32px !important;
-  font-family: 'Eno Black', sans-serif;
-  font-weight: 900;
-}
 .mainBtn {
   position: fixed; 
 
